@@ -15,15 +15,17 @@ class foreman_proxy::proxydns {
     fail("Could not get the ip address from fact ipaddress_${interface_fact_name}")
   }
 
-  ::dns::zone { $foreman_proxy::dns_zone:
-    soa     => $::fqdn,
-    reverse => false,
-    soaip   => $ip,
-  }
+  if $foreman_proxy::dns_create_zones {
+    ::dns::zone { $foreman_proxy::dns_zone:
+      soa     => $::fqdn,
+      reverse => false,
+      soaip   => $ip,
+    }
 
-  ::dns::zone { $foreman_proxy::dns_reverse:
-    soa     => $::fqdn,
-    reverse => true,
-    soaip   => $ip,
+    ::dns::zone { $foreman_proxy::dns_reverse:
+      soa     => $::fqdn,
+      reverse => true,
+      soaip   => $ip,
+    }
   }
 }

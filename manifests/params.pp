@@ -255,6 +255,7 @@ class foreman_proxy::params {
   $dns                    = false
   $dns_listen_on          = 'https'
   $dns_managed            = true
+  $dns_create_zones       = true
   $dns_provider           = 'nsupdate'
   $dns_interface          = 'eth0'
   $dns_zone               = $::domain

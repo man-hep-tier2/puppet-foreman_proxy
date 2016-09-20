@@ -221,6 +221,8 @@
 # $dns_managed::                DNS is managed by Foreman proxy
 #                               type:boolean
 #
+# $dns_create_zones::           create zone files for DNS zone and reverse zone
+#
 # $dns_provider::               DNS provider
 #
 # $dns_interface::              DNS interface
@@ -373,6 +375,7 @@ class foreman_proxy (
   $dns                        = $foreman_proxy::params::dns,
   $dns_listen_on              = $foreman_proxy::params::dns_listen_on,
   $dns_managed                = $foreman_proxy::params::dns_managed,
+  $dns_create_zones            = $foreman_proxy::params::dns_create_zones,
   $dns_provider               = $foreman_proxy::params::dns_provider,
   $dns_interface              = $foreman_proxy::params::dns_interface,
   $dns_zone                   = $foreman_proxy::params::dns_zone,
