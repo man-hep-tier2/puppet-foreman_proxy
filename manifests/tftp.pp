@@ -61,7 +61,12 @@ class foreman_proxy::tftp {
 
   case $grub_type {
     'redhat': {
-      ensure_packages(['grub2-efi','grub2-efi-modules','grub2-tools','shim'], { ensure => 'installed', })
+      if versioncmp($::operatingsystemrelease, '7.4') >= 0 and $::operatingsystem != 'Fedora' {
+        $packages = ['grub2-efi-x64','grub2-efi-x64-modules','grub2-tools','shim-x64']
+      } else {
+        $packages = ['grub2-efi','grub2-efi-modules','grub2-tools','shim']
+      }
+      ensure_packages($packages, { ensure => 'installed', })
 
       exec {'build-grub2-efi-image':
         command => "/usr/bin/grub2-mkimage -O x86_64-efi -d ${efi_dir} -o ${foreman_proxy::tftp_root}/grub2/grubx64.efi -p '' ${grub_modules}",
